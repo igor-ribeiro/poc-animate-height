@@ -1,3 +1,5 @@
+import { LayoutGroup, motion } from "framer-motion";
+import { div } from "framer-motion/client";
 import { useCallback, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
@@ -7,10 +9,11 @@ function App() {
   const [ref, animate] = useAnimateHeight();
 
   function updateScene(targetScene: typeof scene) {
-    animate({
-      update: () => setScene(targetScene),
-      rollback: () => setScene(scene),
-    });
+    setScene(targetScene);
+    // animate({
+    //   update: () => setScene(targetScene),
+    //   rollback: () => setScene(scene),
+    // });
   }
 
   return (
@@ -27,22 +30,26 @@ function App() {
         aria-hidden={!visible}
         onClick={() => setVisible(false)}
       >
-        <div
+        <motion.div
+          layout
           ref={ref}
-          className="w-1/2 overflow-hidden rounded bg-white p-4 shadow-lg transition-all group-aria-hidden:translate-y-full"
+          className="w-1/2 overflow-hidden rounded bg-white p-4 shadow-lg"
           onClick={(e) => e.stopPropagation()}
+          transition={{
+            ease: "easeInOut",
+          }}
         >
           {scene === "idle" ? (
-            <div className="flex justify-center gap-2">
+            <motion.div layout="position" className="flex justify-center gap-2">
               <button
                 className="rounded bg-blue-500 px-4 py-2 text-sm font-bold text-white"
                 onClick={() => updateScene("confirmation")}
               >
                 Approve
               </button>
-            </div>
+            </motion.div>
           ) : (
-            <div className="space-y-2 text-center">
+            <motion.div layout="position" className="space-y-2 text-center">
               <h2 className="font-lg font-bold">Are you sure?</h2>
               <p className="text-gray-600">This action cannot be undone</p>
               <div className="space-x-2">
@@ -62,9 +69,9 @@ function App() {
                   Confirm
                 </button>
               </div>
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
