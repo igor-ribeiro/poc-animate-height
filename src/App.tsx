@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
 function App() {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [scene, setScene] = useState<"idle" | "confirmation">("idle");
   const [ref, animate] = useAnimateHeight();
 
