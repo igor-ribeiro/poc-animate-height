@@ -35,6 +35,9 @@ function App() {
           ref={ref}
           className="w-1/2 overflow-hidden rounded bg-white p-4 shadow-lg"
           onClick={(e) => e.stopPropagation()}
+          animate={{
+            translateY: visible ? "0" : "100%",
+          }}
           transition={{
             ease: "easeInOut",
           }}
